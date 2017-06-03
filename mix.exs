@@ -56,7 +56,7 @@ defmodule TrackerBot.Mixfile do
      {:poison, "~> 2.2.0"},
      {:slack, "~> 0.11.0"},
      {:logger_file_backend, "~> 0.0.9"},
-     {:timex, "~> 3.0"},
+     {:timex, "~> 3.1"},
      {:credo, "~> 0.8", only: ~w(dev test)a},
      {:dialyxir, "~> 0.4", only: ~w(dev test)a, runtime: false},
      {:edeliver, ">= 1.2.9", only: :dev},
