@@ -13,6 +13,6 @@ defmodule TrackerBot.Supervisor do
     {:ok, {:supervisor.sup_flags, [Supervisor.Spec.spec]}}
   def init(:ok) do
     _ = Logger.info("Start Tracker Bot supervisor")
-    supervise(children, strategy: :one_for_one)
+    supervise([], strategy: :one_for_one)
   end
 end

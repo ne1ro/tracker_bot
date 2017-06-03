@@ -15,7 +15,7 @@ defmodule Management do
   defp report_template(_), do: "Nothing to report 😴"
 
   defp story_template(%{"current_state" => state} = story)
-  when state is not "accepted" do
+  when state != "accepted" do
   end
 
   defp story_template(_), do: ""
