@@ -1,9 +1,9 @@
 defmodule TrackerBot do
-  require Logger
-
   @moduledoc """
     Entry point of library/application.
   """
+
+  require Logger
 
   @spec start(any(), any()) :: :ignore | {:error, any()} | {:ok, pid}
   def start(_type \\ nil, _args \\ nil) do
