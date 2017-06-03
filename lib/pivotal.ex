@@ -8,17 +8,22 @@ defmodule Pivotal do
 
   @base_url "https://www.pivotaltracker.com/services/v5/"
   @token Application.fetch_env!(:tracker_bot, :pivotal_api_token)
-  @project_attributes ~w(id name)
 
   def list_projects do
-    with {:ok, %{body: projects}} <- get("/projects"),
-      do: Enum.map(projects, &(Map.take(&1, @project_attributes)))
+    with {:ok, %{body: projects}} <- get("/projects"), do: projects
   end
 
   def list_people(project_id) do
     with {:ok, %{body: people}} <- get("/my/people?project_id=#{project_id}")
     do
       people
+    end
+  end
+
+  def list_stories(project_id) do
+    with {:ok, %{body: stories}} <- get("/projects/#{project_id}/stories")
+    do
+      stories
     end
   end
 
