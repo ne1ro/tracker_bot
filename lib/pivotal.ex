@@ -11,8 +11,15 @@ defmodule Pivotal do
   @project_attributes ~w(id name)
 
   def list_projects do
-    with {:ok, %{body: projects}} <- __MODULE__.get("/projects"),
+    with {:ok, %{body: projects}} <- get("/projects"),
       do: Enum.map(projects, &(Map.take(&1, @project_attributes)))
+  end
+
+  def list_people(project_id) do
+    with {:ok, %{body: people}} <- get("/my/people?project_id=#{project_id}")
+    do
+      people
+    end
   end
 
   defp process_url(url), do: @base_url <> url
