@@ -10,11 +10,11 @@ use Mix.Config
 
 # You can configure for your application as:
 #
-#     config :elixir_base, key: :value
+#     config :tracker_bot, key: :value
 #
 # And access this configuration in your application as:
 #
-#     Application.get_env(:elixir_base, :key)
+#     Application.get_env(:tracker_bot, :key)
 #
 # Or configure a 3rd-party app:
 #
@@ -27,7 +27,7 @@ config :logger, :console,
   colors: [info: :green]
 
 config :logger, :file_log,
-  path: "./log/elixir_base.log",
+  path: "./log/tracker_bot.log",
   format: "$date $time [$node][$metadata][$level] $message\n",
   level: :debug,
   metadata: [:pid]
