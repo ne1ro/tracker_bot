@@ -3,20 +3,25 @@ defmodule Management do
     Management related logic
   """
 
-  def report(days_ago \\ 1) do
-    report_template(days_ago, [])
-  end
+  @omitted_state "accepted"
 
-  defp report_template(date, stories) when length(stories) > 0, do: """
-    Daily report for the date - #{Timex.now}
+  def report, do: Pivotal.list_projects |> hd |> Map.get("id") |> report
+  def report(project_id), do: project_id |> Pivotal.list_stories |> do_report
+
+  defp do_report(stories) when length(stories) > 0, do: """
+    Daily report for #{Timex.now}
     =======================================
+    #{Enum.map_join(stories, &story_template/1)}
     =======================================
+    Sincerely, manager
   """
-  defp report_template(_), do: "Nothing to report 😴"
+  defp do_report(_), do: "Nothing to report 😴"
 
-  defp story_template(%{"current_state" => state} = story)
-  when state != "accepted" do
-  end
+  defp story_template(%{"current_state" => state} = story), do: """
+    -------------------------------------------------------
+    #{story["name"]}
+    -------------------------------------------------------
+  """
 
   defp story_template(_), do: ""
 end
