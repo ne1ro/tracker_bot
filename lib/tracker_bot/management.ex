@@ -30,18 +30,19 @@ defmodule Management do
 
   defp user_template(%{stories: stories} = user) when length(stories) > 0, do:
   """
-  #{user["name"]}
+  #{String.upcase(user["name"])}:
 
   #{stories |> Enum.with_index |> Enum.map_join(&story_template/1)}
   """
   defp user_template(_), do: ""
 
-  defp story_template({%{"current_state" => state} = story, index}) do
+  defp story_template({story, index}) do
     """
-    #{index + 1}) #{String.upcase(story["name"])}
+    #{index + 1}) #{story["name"]}
     #{story["url"]}
     *Status*: #{String.capitalize(story["current_state"])}
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
     """
   end
   defp story_template(_), do: ""
@@ -53,17 +54,16 @@ defmodule Management do
     Below please find the report with the development progress:
     ________________________________________
 
-    DAILY REPORT: #{Timex.now}
-    - #{Timex.now} -
+    *DAILY REPORT: #{Timex.format!(Timex.now, "%b %eth", :strftime)}*
+    *- #{Timex.format!(Timex.now, "%A", :strftime)} -*
     ________________________________________
 
-    QUESTIONS/COMMENTS:
+    *QUESTIONS/COMMENTS:*
 
     -
 
     ________________________________________
     #{Enum.map_join(people, &user_template/1)}
-
     Thanks,
     Yuliana
     """

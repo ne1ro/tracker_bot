@@ -6,8 +6,7 @@ defmodule Pivotal do
   use HTTPoison.Base
   require Logger
 
-  @limit 1000
-  @allowed_states "accepted,delivered,finished,started,rejected,planned,unstarted,unscheduled"
+  @limit 10_000
 
   @base_url "https://www.pivotaltracker.com/services/v5/"
   @token Application.fetch_env!(:tracker_bot, :pivotal_api_token)
