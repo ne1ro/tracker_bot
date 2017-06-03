@@ -18,6 +18,12 @@ use Mix.Config
 #
 # Or configure a 3rd-party app:
 #
+config :tracker_bot,
+       pivotal_api_token: System.get_env("PIVOTAL_API_TOKEN")
+
+config :slack,
+       api_token: System.get_env("SLACK_API_TOKEN")
+
 config :logger, backends: [:console, {LoggerFileBackend, :file_log}]
 
 config :logger, :console,
