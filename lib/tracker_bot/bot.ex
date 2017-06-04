@@ -7,7 +7,7 @@ defmodule TrackerBot.Bot do
   alias TrackerBot.Management
   require Logger
 
-  @channel "#reports"
+  @channel Application.fetch_env!(:tracker_bot, :allowed_channel)
 
   def handle_connect(slack, state) do
     Logger.debug("Connected to Slack as #{slack.me.name}")

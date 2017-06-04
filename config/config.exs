@@ -19,7 +19,8 @@ use Mix.Config
 # Or configure a 3rd-party app:
 #
 config :tracker_bot,
-       pivotal_api_token: System.get_env("PIVOTAL_API_TOKEN")
+       pivotal_api_token: System.get_env("PIVOTAL_API_TOKEN"),
+       allowed_channel: System.get_env("ALLOWED_CHANNEL")
 
 config :slack,
        api_token: System.get_env("SLACK_API_TOKEN")
