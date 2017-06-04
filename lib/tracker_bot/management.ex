@@ -2,14 +2,15 @@ defmodule TrackerBot.Management do
   @moduledoc """
   Management related logic
   """
-  import Reporting
-
   alias TrackerBot.{Pivotal, Reporting}
 
   @omitted_states ~w()
 
+  def list_projects,
+    do: Enum.map_join(Pivotal.list_projects, ",", &(Map.get(&1, "name")))
+
   def report, do: Pivotal.list_projects |> hd |> Map.get("id") |> report
-  def report(project_id) do
+  def report(project_id) when is_integer(project_id) do
     stories =
       project_id
       |> Pivotal.list_stories

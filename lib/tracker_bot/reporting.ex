@@ -24,8 +24,8 @@ defmodule TrackerBot.Reporting do
     Yuliana
     """
   end
-
   def do_report(_), do: "Nothing to report 😴"
+
   defp user_template(%{stories: stories} = user) when length(stories) > 0, do:
   """
   #{String.upcase(user["name"])}:
