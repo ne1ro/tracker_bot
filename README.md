@@ -5,7 +5,7 @@ Third-party service badges (if available)
 
 ## Project description
 
-Pivotal Tracker bot for Slack.
+Pivotal Tracker bot for Telegram.
 
 ## Dependencies
 

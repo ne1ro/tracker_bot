@@ -22,8 +22,8 @@ config :tracker_bot,
        pivotal_api_token: System.get_env("PIVOTAL_API_TOKEN"),
        allowed_channel: System.get_env("ALLOWED_CHANNEL")
 
-config :slack,
-       api_token: System.get_env("SLACK_API_TOKEN")
+config :nadia,
+       token: System.get_env("TELEGRAM_API_TOKEN")
 
 config :logger, backends: [:console, {LoggerFileBackend, :file_log}]
 
