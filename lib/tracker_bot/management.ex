@@ -24,6 +24,12 @@ defmodule TrackerBot.Management do
 
     File.write("report.txt", report)
   end
+  def report(project_name) do
+    Pivotal.list_projects
+    |> Enum.find(fn(%{"name" => name}) -> name == project_name end)
+    |> Map.get("id")
+    |> report
+  end
 
   defp assign_stories(%{"person" => %{"id" => id}} = user, stories) do
     user
