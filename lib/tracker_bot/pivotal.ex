@@ -1,4 +1,4 @@
-defmodule Pivotal do
+defmodule TrackerBot.Pivotal do
   @moduledoc """
   Pivotal Tracker API wrapper
   """
