@@ -4,7 +4,7 @@ defmodule TrackerBot.Management do
   """
   alias TrackerBot.{Pivotal, Reporting}
 
-  @omitted_states ~w()
+  @omitted_states ~w(unstarted accepted unscheduled)
 
   def list_projects,
     do: Enum.map_join(Pivotal.list_projects, ",", &(Map.get(&1, "name")))

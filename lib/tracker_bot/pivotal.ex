@@ -6,7 +6,7 @@ defmodule TrackerBot.Pivotal do
   use HTTPoison.Base
   require Logger
 
-  @limit 10_000
+  @limit 1_000
 
   @base_url "https://www.pivotaltracker.com/services/v5/"
   @token Application.fetch_env!(:tracker_bot, :pivotal_api_token)
@@ -23,9 +23,14 @@ defmodule TrackerBot.Pivotal do
   end
 
   def list_stories(project_id) do
-    params = URI.encode_query(%{limit: @limit})
+    params = URI.encode_query(%{
+      limit: @limit,
+      offset: 0,
+      envelope: "true",
+      created_after: Timex.now |> Timex.shift(months: -4) |> Timex.format!("{ISO:Extended:Z}")
+    })
 
-    with {:ok, %{body: stories}} <- get("/projects/#{project_id}/stories?#{params}")
+    with {:ok, %{body: %{"data" => stories}}} <- get("/projects/#{project_id}/stories?#{params}")
     do
       stories
     end
