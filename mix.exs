@@ -55,6 +55,8 @@ defmodule TrackerBot.Mixfile do
      {:hackney, "~> 1.8"},
      {:poison, "~> 3.0"},
      {:nadia, "~> 0.4"},
+      {:cowboy, "~> 1.0.0"},
+     {:plug, "~> 1.3"},
      {:logger_file_backend, "~> 0.0.9"},
      {:timex, "~> 3.1"},
      {:credo, "~> 0.8", only: ~w(dev test)a},

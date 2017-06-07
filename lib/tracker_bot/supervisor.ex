@@ -5,7 +5,8 @@ defmodule TrackerBot.Supervisor do
 
   use Supervisor
   require Logger
-  alias TrackerBot.Bot
+  alias Plug.Adapters.Cowboy
+  alias TrackerBot.{Bot, Router}
 
   def start_link,
     do: Supervisor.start_link(__MODULE__, :ok, name: TrackerBot.Supervisor)
@@ -14,6 +15,7 @@ defmodule TrackerBot.Supervisor do
     {:ok, {:supervisor.sup_flags, [Supervisor.Spec.spec]}}
   def init(:ok) do
     _ = Logger.info("Start Tracker Bot supervisor")
+    children = [Plug.Adapters.Cowboy.child_spec(:http, Router, [], [port: 3000]]
 
     supervise([], strategy: :one_for_one)
   end
