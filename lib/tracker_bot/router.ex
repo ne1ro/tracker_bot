@@ -3,18 +3,20 @@ defmodule TrackerBot.Router do
   Webhooks router
   """
   use Plug.Router
-  alias Plug.Conn
+
+  @allowed_users Application.get_env(:tracker_bot, :allowed_users, [])
 
   if Mix.env == :dev, do: use Plug.Debugger
 
   plug :match
-  plug Plug.Parsers, parsers: [:json], pass:  ["text/*", "application/*"],
-                     json_decoder: Poison
+  plug Plug.Parsers, parsers: [:json], pass:  ["text/*", "application/*"], json_decoder: Poison
   plug :dispatch
 
   post "/webhooks" do
-    IO.inspect(conn.body_params)
-    %{"message" => %{"from" => %{"id" => chat_id}}} = conn.body_params
+    IO.inspect(@allowed_users)
+    %{"message" => %{"chat" => %{"id" => chat_id, "username" => username}, "text" => text}} = conn.body_params
+    IO.inspect(text)
+    IO.inspect(username)
     Nadia.send_message(chat_id, help())
 
     send_resp(conn, 202, "")

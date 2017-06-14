@@ -20,7 +20,7 @@ use Mix.Config
 #
 config :tracker_bot,
        pivotal_api_token: System.get_env("PIVOTAL_API_TOKEN"),
-       allowed_channel: System.get_env("ALLOWED_CHANNEL")
+       allowed_users: (System.get_env("ALLOWED_USERS") || "") |> String.split(",")
 
 config :nadia,
        token: System.get_env("TELEGRAM_API_TOKEN")

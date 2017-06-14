@@ -16,13 +16,10 @@ defmodule TrackerBot.Management do
       |> Pivotal.list_stories
       |> Enum.reject(fn(%{"current_state" => state}) -> state in @omitted_states end)
 
-    report =
-      project_id
-      |> Pivotal.list_people
-      |> Enum.map(&(assign_stories(&1, stories)))
-      |> Reporting.report
-
-    File.write("report.txt", report)
+    project_id
+    |> Pivotal.list_people
+    |> Enum.map(&(assign_stories(&1, stories)))
+    |> Reporting.report
   end
   def report(project_name) do
     Pivotal.list_projects

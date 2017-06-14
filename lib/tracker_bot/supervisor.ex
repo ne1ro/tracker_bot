@@ -6,7 +6,7 @@ defmodule TrackerBot.Supervisor do
   use Supervisor
   require Logger
   alias Plug.Adapters.Cowboy
-  alias TrackerBot.{Bot, Router}
+  alias TrackerBot.Router
 
   def start_link,
     do: Supervisor.start_link(__MODULE__, :ok, name: TrackerBot.Supervisor)
