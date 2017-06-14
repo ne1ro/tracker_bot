@@ -12,11 +12,13 @@ defmodule TrackerBot.Router do
                      json_decoder: Poison
   plug :dispatch
 
-  get "/hello" do
-    send_resp(conn, 200, "world")
+  post "/report" do
+    {:ok, body, _conn} = read_body(conn)
+    IO.inspect(body)
+    send_resp(conn, 202, "world")
   end
 
   match _ do
-    send_resp(conn, 404, "oops")
+    send_resp(conn, 401, "Sorry, can't authorize you :(")
   end
 end
