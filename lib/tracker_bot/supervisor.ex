@@ -15,8 +15,8 @@ defmodule TrackerBot.Supervisor do
     {:ok, {:supervisor.sup_flags, [Supervisor.Spec.spec]}}
   def init(:ok) do
     _ = Logger.info("Start Tracker Bot supervisor")
-    children = [Plug.Adapters.Cowboy.child_spec(:http, Router, [], [port: 3000])]
+    children = [Cowboy.child_spec(:http, Router, [], port: 3000)]
 
-    supervise([], strategy: :one_for_one)
+    supervise(children, strategy: :one_for_one)
   end
 end

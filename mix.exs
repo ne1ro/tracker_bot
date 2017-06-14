@@ -24,7 +24,7 @@ defmodule TrackerBot.Mixfile do
   def application do
     [
       mod: {TrackerBot, []},
-      extra_applications: ~w(logger)a,
+      extra_applications: ~w(logger cowboy plug)a,
       elixirc_paths: elixirc_paths(Mix.env)
     ]
   end
@@ -55,8 +55,9 @@ defmodule TrackerBot.Mixfile do
      {:hackney, "~> 1.8"},
      {:poison, "~> 3.0"},
      {:nadia, "~> 0.4"},
-      {:cowboy, "~> 1.0.0"},
+     {:cowboy, "~> 1.0.0"},
      {:plug, "~> 1.3"},
+     {:poison, "~> 3.0"},
      {:logger_file_backend, "~> 0.0.9"},
      {:timex, "~> 3.1"},
      {:credo, "~> 0.8", only: ~w(dev test)a},
