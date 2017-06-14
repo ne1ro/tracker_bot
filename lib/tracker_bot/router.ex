@@ -15,7 +15,9 @@ defmodule TrackerBot.Router do
   post "/webhooks" do
     %{chat_id: chat_id} = conn.assigns
     Nadia.send_message(chat_id, "Start processing report 😫 ...")
-    Nadia.send_message(chat_id, Management.report())
+    for <<chunk::binary-4096 <- Management.report>>,
+      do: Nadia.send_message(chat_id, chunk)
+
     send_resp(conn, 201, "")
   end
 
