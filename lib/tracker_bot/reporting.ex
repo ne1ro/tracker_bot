@@ -5,6 +5,7 @@ defmodule TrackerBot.Reporting do
 
   def report(people) when length(people) > 0 do
     """
+    ```
     Hello everybody!
 
     Below please find the report with the development progress:
@@ -22,6 +23,7 @@ defmodule TrackerBot.Reporting do
     #{Enum.map_join(people, &user_template/1)}
     Thanks,
     Yuliana
+    ```
     """
   end
   def do_report(_), do: "Nothing to report 😴"
