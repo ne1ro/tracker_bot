@@ -7,11 +7,11 @@ defmodule TrackerBot.Plugs.Authorization do
   def init(opts), do: opts
 
   def call(%{body_params: %{"message" => message}} = conn, _opts) do
-    %{"chat" => %{"id" => chat_id, "username" => username}} = message
+    %{"chat" => %{"id" => chat_id, "username" => username}, "text" => text} = message
 
     case username in @allowed_users do
       true ->
-        assign(conn, :chat_id, chat_id)
+        conn |> assign(:chat_id, chat_id) |> assign(:text, text)
       _ ->
         Nadia.send_message(chat_id, @msg)
         send_resp(conn, 401, @msg)
