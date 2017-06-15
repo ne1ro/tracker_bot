@@ -14,7 +14,7 @@ defmodule TrackerBot.Plugs.Authorization do
         conn |> assign(:chat_id, chat_id) |> assign(:text, text)
       _ ->
         Nadia.send_message(chat_id, @msg)
-        send_resp(conn, 401, @msg)
+        conn |> send_resp(401, @msg) |> halt
     end
   end
   def call(conn, _), do: conn
