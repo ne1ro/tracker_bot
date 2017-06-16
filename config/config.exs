@@ -19,6 +19,7 @@ use Mix.Config
 # Or configure a 3rd-party app:
 #
 config :tracker_bot,
+       port: System.get_env("PORT") || 3000,
        pivotal_api_token: System.get_env("PIVOTAL_API_TOKEN"),
        allowed_users: (System.get_env("ALLOWED_USERS") || "") |> String.split(",")
 
