@@ -21,7 +21,7 @@ use Mix.Releases.Config,
 # when building in that environment, this combination of release
 # and environment configuration is called a profile
 
-environment :staging do
+environment :prod do
   set dev_mode: false
   set include_erts: true
   set include_src: false
