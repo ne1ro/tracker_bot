@@ -17,15 +17,8 @@ defmodule TrackerBot.Supervisor do
     {:ok, {:supervisor.sup_flags, [Supervisor.Spec.spec]}}
   def init(:ok) do
     _ = Logger.info("Start Tracker Bot supervisor")
-    children = [Cowboy.child_spec(protocol(), Router, [], @cowboy_opts)]
+    children = [Cowboy.child_spec(:http, Router, [], @cowboy_opts)]
 
     supervise(children, strategy: :one_for_one)
-  end
-
-  defp protocol do
-    case System.get_env("MIX_ENV") == "prod" do
-      true -> :https
-      _ -> :http
-    end
   end
 end
