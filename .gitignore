@@ -112,3 +112,4 @@ GitHub.sublime-settings
 
 .env
 report.txt
+.deliver/releases
