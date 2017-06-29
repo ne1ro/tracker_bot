@@ -30,7 +30,7 @@ defmodule TrackerBot.Router do
   end
 
   defp send_report(chat_id) do
-    send_report(chat_id, hd(Management.list_projects))
+    send_report(chat_id, Management.list_projects |> String.split(",") |> hd)
   end
 
   defp send_report(chat_id, name) do
