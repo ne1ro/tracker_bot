@@ -10,11 +10,11 @@ defmodule TrackerBot.Reporting do
     Below please find the report with the development progress:
     ________________________________________
 
-    *DAILY REPORT: #{Timex.format!(Timex.now, "%b %eth", :strftime)}*
-    *- #{Timex.format!(Timex.now, "%A", :strftime)} -*
+    DAILY REPORT: #{Timex.format!(Timex.now, "%b %eth", :strftime)}
+    - #{Timex.format!(Timex.now, "%A", :strftime)} -
     ________________________________________
 
-    *QUESTIONS/COMMENTS:*
+    QUESTIONS/COMMENTS:
 
     -
 
@@ -38,10 +38,13 @@ defmodule TrackerBot.Reporting do
     """
     #{index + 1}) #{story["name"]}
     #{story["url"]}
-    *Status*: #{String.capitalize(story["current_state"])}
+    Status: #{state(story["current_state"])}
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     """
   end
   defp story_template(_), do: ""
+
+  defp state("started"), do: "WIP"
+  defp state(str), do: String.capitalize(str)
 end
