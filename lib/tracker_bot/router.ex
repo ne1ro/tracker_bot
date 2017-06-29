@@ -16,6 +16,7 @@ defmodule TrackerBot.Router do
     %{chat_id: chat_id, text: text} = conn.assigns
 
     case text do
+      "/report" -> send_report(chat_id)
       "/report " <> name -> send_report(chat_id, name)
       "/projects" -> Nadia.send_message(chat_id, Management.list_projects())
       _ -> Nadia.send_message(chat_id, help())
@@ -26,6 +27,10 @@ defmodule TrackerBot.Router do
 
   match _ do
     send_resp(conn, 401, "Sorry, can't authorize you :(")
+  end
+
+  defp send_report(chat_id) do
+    send_report(chat_id, hd(Management.list_projects))
   end
 
   defp send_report(chat_id, name) do
@@ -43,6 +48,7 @@ defmodule TrackerBot.Router do
 
     /start - prints help
     /help - prints help
+    /report - prints daily report for the first project
     /report [project name] - prints daily report
     /projects - prints list of the projects
   """
