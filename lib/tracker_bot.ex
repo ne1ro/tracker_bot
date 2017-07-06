@@ -1,6 +1,6 @@
 defmodule TrackerBot do
   @moduledoc """
-    Entry point of library/application.
+  Entry point of library/application.
   """
 
   require Logger
