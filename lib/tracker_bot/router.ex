@@ -2,8 +2,10 @@ defmodule TrackerBot.Router do
   @moduledoc """
   Webhooks router
   """
+
   use Plug.Router
-  alias TrackerBot.{Plugs.Authorization, Management}
+  alias TrackerBot.Plugs.Authorization
+  alias TrackerBot.Bot
 
   if Mix.env == :dev, do: use Plug.Debugger
 
@@ -16,11 +18,11 @@ defmodule TrackerBot.Router do
     %{chat_id: chat_id, text: text} = conn.assigns
 
     case text do
-      "/report" -> send_report(chat_id)
-      "/report " <> name -> send_report(chat_id, name)
-      "/projects" -> Nadia.send_message(chat_id, Management.list_projects())
-      "/accepted" -> Nadia.send_message(chat_id, Management.list_accepted())
-      _ -> Nadia.send_message(chat_id, help())
+      "/report" -> Bot.send_report(chat_id)
+      "/report " <> name -> Bot.send_report(chat_id, name)
+      "/projects" -> Bot.send_message(chat_id, :projects)
+      "/accepted" -> Bot.send_message(chat_id, :accepted)
+      _ -> Bot.send_message(chat_id, :help)
     end
 
     send_resp(conn, 201, "")
@@ -29,27 +31,4 @@ defmodule TrackerBot.Router do
   match _ do
     send_resp(conn, 401, "Sorry, can't authorize you :(")
   end
-
-  defp send_report(chat_id) do
-    send_report(chat_id, Management.list_projects |> String.split(",") |> hd)
-  end
-
-  defp send_report(chat_id, name) do
-    Nadia.send_message(chat_id, "Start processing report for #{name} 😫 ...")
-
-    name
-    |> Management.report
-    |> Stream.unfold(&String.split_at(&1, 4096))
-    |> Enum.take_while(&(&1 != ""))
-    |> Enum.each(&(Nadia.send_message(chat_id, &1)))
-  end
-
-  defp help, do: """
-    /start - prints help
-    /help - prints help
-    /report - prints daily report for the first project
-    /report [project name] - prints daily report
-    /accepted - prints list of the accepted stories
-    /projects - prints list of the projects
-  """
 end
