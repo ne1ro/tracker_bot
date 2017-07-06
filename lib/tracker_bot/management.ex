@@ -34,12 +34,14 @@ defmodule TrackerBot.Management do
     stories =
       project_id
       |> Pivotal.list_stories
-      |> Enum.filter(fn(%{"current_state" => state}) -> state == "accepted" end)
+      |> Enum.filter(fn(%{"current_state" => state}) -> state == "delivered" end)
 
-    project_id
+    text = project_id
     |> Pivotal.list_people
     |> Enum.map(&(assign_stories(&1, stories)))
     |> Reporting.report
+
+    File.write!("report.txt", text)
   end
 
   defp assign_stories(%{"person" => %{"id" => id}} = user, stories) do
