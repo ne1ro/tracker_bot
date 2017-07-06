@@ -20,11 +20,20 @@ defmodule TrackerBot.Management do
     |> Enum.map(&(assign_stories(&1, stories)))
     |> Reporting.report
   end
+
   def report(project_name) do
     Pivotal.list_projects
     |> Enum.find(fn(%{"name" => name}) -> name == project_name end)
     |> Map.get("id")
     |> report
+  end
+
+  def list_accepted do
+    Pivotal.list_projects
+    |> hd
+    |> Map.get("id")
+    |> Pivotal.list_stories
+    |> Enum.filter(fn(%{"current_state" => state}) -> state == "accepted" end)
   end
 
   defp assign_stories(%{"person" => %{"id" => id}} = user, stories) do

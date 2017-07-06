@@ -19,6 +19,7 @@ defmodule TrackerBot.Router do
       "/report" -> send_report(chat_id)
       "/report " <> name -> send_report(chat_id, name)
       "/projects" -> Nadia.send_message(chat_id, Management.list_projects())
+      "/list-accepted" -> Nadia.send_message(chat_id, Management.list_accepted())
       _ -> Nadia.send_message(chat_id, help())
     end
 
@@ -50,6 +51,7 @@ defmodule TrackerBot.Router do
     /help - prints help
     /report - prints daily report for the first project
     /report [project name] - prints daily report
+    /list-accepted - prints list of the accepted stories
     /projects - prints list of the projects
   """
 end

@@ -47,7 +47,6 @@ defmodule TrackerBot.Mixfile do
     [
      {:distillery, "~> 1.4"},
      {:edeliver, "~> 1.4"},
-     {:erlexec, "~> 1.2.1"},
      {:effects, "~> 0.1.0"},
      {:guardsafe, "~> 0.5.0"},
      {:monadex, "~> 1.0.2"},
