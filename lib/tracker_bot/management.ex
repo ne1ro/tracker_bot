@@ -2,6 +2,7 @@ defmodule TrackerBot.Management do
   @moduledoc """
   Management related logic
   """
+
   alias TrackerBot.{Pivotal, Reporting}
 
   @omitted_states ~w(unstarted accepted unscheduled)
@@ -34,14 +35,17 @@ defmodule TrackerBot.Management do
     stories =
       project_id
       |> Pivotal.list_stories
-      |> Enum.filter(fn(%{"current_state" => state}) -> state == "delivered" end)
+      |> Enum.filter(fn(%{"current_state" => state}) -> state == "accepted" end)
+      |> Enum.filter(fn(%{"accepted_at" => accepted_at}) ->
+        accepted_at
+        |> Timex.parse!("{ISO:Extended:Z}")
+        |> Timex.compare(Timex.shift(Timex.now, days: -1)) == 1
+      end)
 
-    text = project_id
+    project_id
     |> Pivotal.list_people
     |> Enum.map(&(assign_stories(&1, stories)))
     |> Reporting.report
-
-    File.write!("report.txt", text)
   end
 
   defp assign_stories(%{"person" => %{"id" => id}} = user, stories) do
