@@ -4,7 +4,7 @@ defmodule TrackerBot.Mixfile do
   def project do
     [
       app: :tracker_bot,
-      version: "0.2.1",
+      version: "0.3.0",
       elixir: "~> 1.4",
       name: "Tracker Bot",
       homepage_url: "https://github.com/ne1ro/tracker_bot",
