@@ -15,6 +15,7 @@ defmodule TrackerBot.Management do
       project_id
       |> Pivotal.list_stories
       |> Enum.reject(fn(%{"current_state" => state}) -> state in @omitted_states end)
+      |> filter_by_day
 
     project_id
     |> Pivotal.list_people
@@ -36,11 +37,7 @@ defmodule TrackerBot.Management do
       project_id
       |> Pivotal.list_stories
       |> Enum.filter(fn(%{"current_state" => state}) -> state == "accepted" end)
-      |> Enum.filter(fn(%{"accepted_at" => accepted_at}) ->
-        accepted_at
-        |> Timex.parse!("{ISO:Extended:Z}")
-        |> Timex.compare(Timex.shift(Timex.now, days: -1)) == 1
-      end)
+      |> filter_by_day("accepted_at")
 
     project_id
     |> Pivotal.list_people
@@ -52,6 +49,14 @@ defmodule TrackerBot.Management do
     user
     |> Map.get("person")
     |> Map.put(:stories, Enum.filter(stories, &(owner?(&1, id))))
+  end
+
+  defp filter_by_day(stories, field \\ "updated_at") do
+    Enum.filter(stories, fn(%{^field => time}) ->
+      time
+      |> Timex.parse!("{ISO:Extended:Z}")
+      |> Timex.compare(Timex.shift(Timex.now, days: -1)) == 1
+    end)
   end
 
   defp owner?(%{"owner_ids" => owner_ids}, id), do: id in owner_ids
