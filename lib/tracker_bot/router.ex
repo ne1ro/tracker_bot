@@ -22,6 +22,7 @@ defmodule TrackerBot.Router do
       "/report " <> name -> Bot.send_report(chat_id, name)
       "/projects" -> Bot.send_message(chat_id, :projects)
       "/accepted" -> Bot.send_message(chat_id, :accepted)
+      "/version" -> Bot.send_version(chat_id)
       _ -> Bot.send_message(chat_id, :help)
     end
 

@@ -6,7 +6,8 @@ defmodule TrackerBot.Pivotal do
   use HTTPoison.Base
   require Logger
 
-  @limit 1_000
+  @limit 300
+  @ttl 40 # days
 
   @base_url "https://www.pivotaltracker.com/services/v5/"
   @token Application.fetch_env!(:tracker_bot, :pivotal_api_token)
@@ -27,7 +28,7 @@ defmodule TrackerBot.Pivotal do
       limit: @limit,
       offset: 0,
       envelope: "true",
-      created_after: Timex.now |> Timex.shift(months: -4) |> Timex.format!("{ISO:Extended:Z}")
+      created_after: Timex.now |> Timex.shift(days: -@ttl) |> Timex.format!("{ISO:Extended:Z}")
     })
 
     with {:ok, %{body: %{"data" => stories}}} <- get("/projects/#{project_id}/stories?#{params}")

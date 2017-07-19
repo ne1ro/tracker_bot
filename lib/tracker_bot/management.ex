@@ -1,3 +1,4 @@
+require IEx
 defmodule TrackerBot.Management do
   @moduledoc """
   Management related logic
@@ -6,7 +7,7 @@ defmodule TrackerBot.Management do
   alias TrackerBot.{Pivotal, Reporting}
 
   @omitted_states ~w(unstarted accepted unscheduled)
-  @ttl 2 # days
+  @ttl 3 # days
 
   def list_projects,
     do: Enum.map_join(Pivotal.list_projects, ",", &(Map.get(&1, "name")))

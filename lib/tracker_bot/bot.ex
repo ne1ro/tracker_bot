@@ -3,6 +3,14 @@ defmodule TrackerBot.Bot do
 
   @limit 4096
 
+  def send_version(id) do
+    with {:ok, version} <- :application.get_key(:tracker_bot, :vsn) do
+      Nadia.send_message(chat_id, version)
+    else
+      _ -> Nadia.send_message(chat_id, "N/A")
+    end
+  end
+
   def send_report(chat_id),
     do: send_report(chat_id, Management.list_projects |> String.split(",") |> hd)
 
@@ -28,6 +36,7 @@ defmodule TrackerBot.Bot do
   /projects - prints list of the projects
   /start - prints help
   /help - prints help
+  /version - prints version number
   """
 
   defp split_message(message, chat_id) do
