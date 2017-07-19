@@ -1,4 +1,3 @@
-require IEx
 defmodule TrackerBot.Management do
   @moduledoc """
   Management related logic

@@ -3,7 +3,7 @@ defmodule TrackerBot.Bot do
 
   @limit 4096
 
-  def send_version(id) do
+  def send_version(chat_id) do
     with {:ok, version} <- :application.get_key(:tracker_bot, :vsn) do
       Nadia.send_message(chat_id, version)
     else
