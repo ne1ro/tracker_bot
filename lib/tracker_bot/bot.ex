@@ -31,13 +31,14 @@ def send_message(chat_id, :default_project),
   do: Nadia.send_message(chat_id, @default_project)
 
   def help, do: """
-  /report - prints daily report for the first project
+  /report - create a daily report for the first project
   /report [project name] - prints daily report
-  /accepted - prints list of the accepted stories
-  /projects - prints list of the projects
-  /start - prints help
-  /help - prints help
-  /version - prints version number
+  /accepted - shows list of the accepted stories
+  /projects - returns list of the projects
+  /default_project - shows name of the default project
+  /start - prints this
+  /help - prints this
+  /version - shows version number
   """
 
   defp split_message(message, chat_id) do
