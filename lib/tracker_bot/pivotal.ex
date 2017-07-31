@@ -7,13 +7,18 @@ defmodule TrackerBot.Pivotal do
   require Logger
 
   @limit 300
-  @ttl 40 # days
+  @ttl 30 # days
 
   @base_url "https://www.pivotaltracker.com/services/v5/"
   @token Application.fetch_env!(:tracker_bot, :pivotal_api_token)
+  @default_project Application.fetch_env!(:tracker_bot, :default_project)
 
   def list_projects do
     with {:ok, %{body: projects}} <- get("/projects"), do: projects
+  end
+
+  def default_project do
+    Enum.find(list_projects(), fn(%{"name" => name}) -> name == @default_project end)
   end
 
   def list_people(project_id) do
@@ -40,7 +45,7 @@ defmodule TrackerBot.Pivotal do
   defp process_url(url), do: @base_url <> url
 
   defp process_response_body(body) do
-    Logger.debug("Pivotal API response: #{body}")
+    Logger.debug(fn -> "Pivotal API response: #{body}" end)
     Poison.decode!(body)
   end
 

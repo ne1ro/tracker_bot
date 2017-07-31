@@ -9,7 +9,7 @@ Pivotal Tracker bot for Telegram.
 
 ## Dependencies
 
-* Elixir 1.4
+* Elixir 1.5
 
 Setup required dependencies from `Brewfile`:
 ```bash

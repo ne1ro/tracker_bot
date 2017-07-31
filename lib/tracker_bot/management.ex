@@ -6,7 +6,7 @@ defmodule TrackerBot.Management do
   alias TrackerBot.{Pivotal, Reporting}
 
   @omitted_states ~w(unstarted accepted unscheduled)
-  @ttl 2 # days
+  @ttl 32 # hours
 
   def list_projects,
     do: Enum.map_join(Pivotal.list_projects, ",", &(Map.get(&1, "name")))
@@ -32,7 +32,7 @@ defmodule TrackerBot.Management do
   end
 
   def list_accepted do
-    project_id = Pivotal.list_projects |> hd |> Map.get("id")
+    project_id = Map.get(Pivotal.default_project(), "id")
 
     stories =
       project_id
@@ -65,7 +65,7 @@ defmodule TrackerBot.Management do
   defp compare(time) do
     time
     |> Timex.parse!("{ISO:Extended:Z}")
-    |> Timex.compare(Timex.shift(Timex.now, days: -@ttl)) == 1
+    |> Timex.compare(Timex.shift(Timex.now, hours: -@ttl)) == 1
   end
 
   defp owner?(%{"owner_ids" => owner_ids}, id), do: id in owner_ids

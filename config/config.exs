@@ -21,6 +21,7 @@ use Mix.Config
 config :tracker_bot,
        cowboy_opts: [port: System.get_env("PORT") || 3000],
        pivotal_api_token: System.get_env("PIVOTAL_API_TOKEN"),
+       default_project: System.get_env("DEFAULT_PROJECT"),
        allowed_users: (System.get_env("ALLOWED_USERS") || "") |> String.split(",")
 
 config :nadia,

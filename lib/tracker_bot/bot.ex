@@ -2,6 +2,7 @@ defmodule TrackerBot.Bot do
   alias TrackerBot.Management
 
   @limit 4096
+  @default_project Application.fetch_env!(:tracker_bot, :default_project)
 
   def send_version(chat_id) do
     with {:ok, version} <- :application.get_key(:tracker_bot, :vsn) do
@@ -10,9 +11,6 @@ defmodule TrackerBot.Bot do
       _ -> Nadia.send_message(chat_id, "N/A")
     end
   end
-
-  def send_report(chat_id),
-    do: send_report(chat_id, Management.list_projects |> String.split(",") |> hd)
 
   def send_report(chat_id, name),
     do: name |> Management.report |> split_message(chat_id)
@@ -28,6 +26,9 @@ defmodule TrackerBot.Bot do
 
   def send_message(chat_id, :help),
     do: Nadia.send_message(chat_id, help())
+
+def send_message(chat_id, :default_project),
+  do: Nadia.send_message(chat_id, @default_project)
 
   def help, do: """
   /report - prints daily report for the first project
