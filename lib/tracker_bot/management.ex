@@ -1,9 +1,10 @@
+require IEx
 defmodule TrackerBot.Management do
   @moduledoc """
   Management related logic
   """
 
-  alias TrackerBot.{Pivotal, Reporting}
+  alias TrackerBot.{Pivotal, Reporting, Labeling}
 
   @omitted_states ~w(unstarted accepted unscheduled)
   @ttl 32 # hours
@@ -21,7 +22,7 @@ defmodule TrackerBot.Management do
     project_id
     |> Pivotal.list_people
     |> Enum.map(&(assign_stories(&1, stories)))
-    |> Reporting.report
+    |> Enum.group_by(&find_label/1, fn(x) -> x end)
   end
 
   def report(project_name) do
@@ -40,10 +41,12 @@ defmodule TrackerBot.Management do
       |> Enum.filter(fn(%{"current_state" => state}) -> state == "accepted" end)
       |> filter_by_day("accepted_at")
 
-    project_id
+    res = project_id
     |> Pivotal.list_people
     |> Enum.map(&(assign_stories(&1, stories)))
     |> Reporting.report
+
+    File.write!("report.txt", res)
   end
 
   defp assign_stories(%{"person" => %{"id" => id}} = user, stories) do
@@ -69,4 +72,7 @@ defmodule TrackerBot.Management do
   end
 
   defp owner?(%{"owner_ids" => owner_ids}, id), do: id in owner_ids
+
+  defp find_label(%{stories: [%{"labels" => labels} | _]}), do: Labeling.get_label(labels)
+  defp find_label(_), do: Labeling.get_label([])
 end
