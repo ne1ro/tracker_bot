@@ -26,8 +26,12 @@ defmodule TrackerBot.Reporting do
   end
   def do_report(_), do: "Nothing to report 😴"
 
+  defp user_template({_, []}),
+    do: ""
+
   defp user_template({label, users}), do:
   """
+
   #{label}
 
   #{Enum.map_join(users, &user_template/1)}
