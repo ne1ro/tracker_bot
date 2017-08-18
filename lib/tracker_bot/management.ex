@@ -18,14 +18,12 @@ defmodule TrackerBot.Management do
       |> Enum.reject(fn(%{"current_state" => state}) -> state in @omitted_states end)
       |> filter_by_day("updated_at", "created_at")
 
-    res = project_id
+    project_id
     |> Pivotal.list_people
     |> Enum.map(&(assign_stories(&1, stories)))
     |> Enum.group_by(&Labeling.get_label/1)
     |> Map.to_list
     |> Reporting.report
-
-    File.write("res.txt", res)
   end
 
   def report(project_name) do
@@ -44,13 +42,12 @@ defmodule TrackerBot.Management do
       |> Enum.filter(fn(%{"current_state" => state}) -> state == "accepted" end)
       |> filter_by_day("accepted_at")
 
-    res =
-      project_id
-      |> Pivotal.list_people
-      |> Enum.map(&(assign_stories(&1, stories)))
-      |> Reporting.report
-
-    File.write!("report.txt", res)
+    project_id
+    |> Pivotal.list_people
+    |> Enum.map(&(assign_stories(&1, stories)))
+    |> Reporting.report
+    |> Map.to_list
+    |> Reporting.report
   end
 
   defp assign_stories(%{"person" => %{"id" => id}} = user, stories) do

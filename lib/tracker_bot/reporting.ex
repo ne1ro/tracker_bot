@@ -19,6 +19,7 @@ defmodule TrackerBot.Reporting do
     -
 
     ________________________________________
+
     #{Enum.map_join(grouped_stories, &user_template/1)}
     Thanks,
     Yuliana
@@ -31,7 +32,6 @@ defmodule TrackerBot.Reporting do
 
   defp user_template({label, users}), do:
   """
-
   #{label}
 
   #{Enum.map_join(users, &user_template/1)}
