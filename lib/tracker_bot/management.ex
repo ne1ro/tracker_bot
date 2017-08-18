@@ -21,7 +21,7 @@ defmodule TrackerBot.Management do
     res = project_id
     |> Pivotal.list_people
     |> Enum.map(&(assign_stories(&1, stories)))
-    |> Enum.group_by(fn(%{stories: stories}) -> find_label(stories) end)
+    |> Enum.group_by(&Labeling.get_label/1)
     |> Map.to_list
     |> Reporting.report
 
@@ -76,8 +76,4 @@ defmodule TrackerBot.Management do
   end
 
   defp owner?(%{"owner_ids" => owner_ids}, id), do: id in owner_ids
-
-  defp find_label(stories) when is_list(stories), do: stories |> List.first |> find_label
-  defp find_label(%{"labels" => labels}), do: Labeling.get_label(labels)
-  defp find_label(_), do: Labeling.get_label([])
 end

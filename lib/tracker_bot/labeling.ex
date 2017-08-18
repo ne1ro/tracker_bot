@@ -6,20 +6,22 @@ defmodule TrackerBot.Labeling do
   @default_label "be"
   @allowed_labels ~w(be fe ios android ui)
 
-  def get_label([]) do
-    @default_label
-  end
-
-  def get_label(labels) when is_list(labels) do
-    labels
-    |> Enum.find(@default_label, fn(%{"name" => name}) ->
-      name in @allowed_labels
+  def get_label(%{stories: stories}) do
+    stories
+    |> Enum.flat_map(fn(%{"labels" => labels}) -> labels end)
+    |> Enum.reduce(%{}, fn(%{"name" => name}, acc) ->
+      case name in @allowed_labels do
+        true -> Map.update(acc, name, 1, &(&1 + 1))
+        _ -> acc
+      end
     end)
+    |> Map.to_list
+    |> Enum.max_by(fn({_, count}) -> count end, fn -> {@default_label, 0} end)
     |> get_label
   end
 
-  def get_label(%{"name" => name}) do
-    get_label(name)
+  def get_label({label, _count}) do
+    get_label(label)
   end
 
   def get_label(label) do
