@@ -11,6 +11,18 @@ defmodule TrackerBot.Labeling do
   end
 
   def get_label(labels) when is_list(labels) do
-    Enum.find(labels, fn(%{"name" => name}) -> name in @allowed_labels end, @default_label)
+    labels
+    |> Enum.find(@default_label, fn(%{"name" => name}) ->
+      name in @allowed_labels
+    end)
+    |> get_label
+  end
+
+  def get_label(%{"name" => name}) do
+    get_label(name)
+  end
+
+  def get_label(label) do
+    label
   end
 end
