@@ -23,6 +23,6 @@ defmodule TrackerBot.Labeling do
   end
 
   def get_label(label) do
-    label
+    String.upcase(label)
   end
 end

@@ -18,10 +18,14 @@ defmodule TrackerBot.Management do
       |> Enum.reject(fn(%{"current_state" => state}) -> state in @omitted_states end)
       |> filter_by_day("updated_at", "created_at")
 
-    project_id
+    res = project_id
     |> Pivotal.list_people
     |> Enum.map(&(assign_stories(&1, stories)))
     |> Enum.group_by(fn(%{stories: stories}) -> find_label(stories) end)
+    |> Map.to_list
+    |> Reporting.report
+
+    File.write("res.txt", res)
   end
 
   def report(project_name) do

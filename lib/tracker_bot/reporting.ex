@@ -3,7 +3,7 @@ defmodule TrackerBot.Reporting do
   Report templates
   """
 
-  def report(people) when length(people) > 0 do
+  def report(grouped_stories) when length(grouped_stories) > 0 do
     """
     Hello everybody!
 
@@ -19,12 +19,19 @@ defmodule TrackerBot.Reporting do
     -
 
     ________________________________________
-    #{Enum.map_join(people, &user_template/1)}
+    #{Enum.map_join(grouped_stories, &user_template/1)}
     Thanks,
     Yuliana
     """
   end
   def do_report(_), do: "Nothing to report 😴"
+
+  defp user_template({label, users}), do:
+  """
+  #{label}
+
+  #{Enum.map_join(users, &user_template/1)}
+  """
 
   defp user_template(%{stories: stories} = user) when length(stories) > 0, do:
   """
