@@ -46,8 +46,6 @@ defmodule TrackerBot.Management do
     |> Pivotal.list_people
     |> Enum.map(&(assign_stories(&1, stories)))
     |> Reporting.report
-    |> Map.to_list
-    |> Reporting.report
   end
 
   defp assign_stories(%{"person" => %{"id" => id}} = user, stories) do
