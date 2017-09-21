@@ -22,7 +22,7 @@ defmodule TrackerBot.Bot do
     do: Nadia.send_message(chat_id, Management.list_projects())
 
   def send_message(chat_id, :accepted),
-    do: Nadia.send_message(chat_id, Management.list_accepted())
+    do: split_message(Management.list_accepted(), chat_id)
 
   def send_message(chat_id, :help),
     do: Nadia.send_message(chat_id, help())
