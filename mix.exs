@@ -45,28 +45,28 @@ defmodule TrackerBot.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-     {:distillery, "~> 1.4"},
-     {:edeliver, "~> 1.4"},
-     {:effects, "~> 0.1.0"},
-     {:guardsafe, "~> 0.5.0"},
-     {:monadex, "~> 1.0.2"},
-     {:httpoison, "~> 0.11.0"},
-     {:hackney, "~> 1.8"},
-     {:poison, "~> 3.1"},
-     {:nadia, "~> 0.4"},
      {:cowboy, "~> 1.0.0"},
-     {:plug, "~> 1.3"},
-     {:logger_file_backend, "~> 0.0.9"},
-     {:timex, "~> 3.1"},
      {:credo, "~> 0.8", only: ~w(dev test)a},
      {:dialyxir, "~> 0.4", only: ~w(dev test)a, runtime: false},
+     {:distillery, "~> 1.4"},
      {:edeliver, ">= 1.2.9", only: :dev},
+     {:edeliver, "~> 1.4"},
+     {:effects, "~> 0.1.0"},
      {:eper, "~> 0.94.0", only: :dev},
-     {:ex_machina, "~> 0.6.1", only: ~w(dev test)a},
-     {:ex_doc, "~> 0.11", only: :dev},
-     {:observer_cli, "~> 1.0.5", only: :dev},
      {:espec, "~> 1.1.0", only: :test},
-     {:faker, "~> 0.5", only: :test,}
+     {:ex_doc, "~> 0.11", only: :dev},
+     {:ex_machina, "~> 0.6.1", only: ~w(dev test)a},
+     {:faker, "~> 0.5", only: :test},
+     {:guardsafe, "~> 0.5.0"},
+     {:hackney, "~> 1.8"},
+     {:httpoison, "~> 0.13.0"},
+     {:logger_file_backend, "~> 0.0.9"},
+     {:monadex, "~> 1.0.2"},
+     {:nadia, "~> 0.4"},
+     {:observer_cli, "~> 1.0.5", only: :dev},
+     {:plug, "~> 1.3"},
+     {:poison, "~> 3.1"},
+     {:timex, "~> 3.1"}
    ]
   end
 
