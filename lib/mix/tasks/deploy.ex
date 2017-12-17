@@ -12,7 +12,8 @@ defmodule Mix.Tasks.Deploy do
   @doc """
   Deploys to `production` env from `production` branch
   """
-  def run(["production"|_]), do: deploy("production", "production")
+  def run(["production" | _]), do: deploy("production", "production")
+
   @doc """
   Default: deploys to `staging` env from `master` branch
   """
@@ -24,7 +25,8 @@ defmodule Mix.Tasks.Deploy do
     dest |> build(branch) |> release(dest) |> start(dest)
   end
 
-  defp build(dest, branch), do: execute("mix edeliver build release #{dest} --branch=#{branch} --verbose")
+  defp build(dest, branch),
+    do: execute("mix edeliver build release #{dest} --branch=#{branch} --verbose")
 
   defp release(0, dest), do: execute("mix edeliver deploy release #{dest} --verbose")
   defp release(prev_status, _), do: prev_status

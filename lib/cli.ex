@@ -11,9 +11,12 @@ defmodule TrackerBot.CLI do
   end
 
   defp parse_args(args) do
-    parse = OptionParser.parse args,
-      switches: [help: :boolean],
-      aliases: [h: :help]
+    parse =
+      OptionParser.parse(
+        args,
+        switches: [help: :boolean],
+        aliases: [h: :help]
+      )
 
     case parse do
       {[help: true], _, _} -> :help
@@ -22,10 +25,11 @@ defmodule TrackerBot.CLI do
   end
 
   defp process(:help) do
-    IO.puts """
+    IO.puts("""
       usage: elixir-base <opts>
       provide custom options
-    """
-    TrackerBot.Supervisor.start_link
+    """)
+
+    TrackerBot.Supervisor.start_link()
   end
 end

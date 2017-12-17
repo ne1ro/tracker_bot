@@ -8,15 +8,15 @@ defmodule TrackerBot.Labeling do
 
   def get_label(%{stories: stories}) do
     stories
-    |> Enum.flat_map(fn(%{"labels" => labels}) -> labels end)
-    |> Enum.reduce(%{}, fn(%{"name" => name}, acc) ->
-      case name in @allowed_labels do
-        true -> Map.update(acc, name, 1, &(&1 + 1))
-        _ -> acc
-      end
-    end)
-    |> Map.to_list
-    |> Enum.max_by(fn({_, count}) -> count end, fn -> {@default_label, 0} end)
+    |> Enum.flat_map(fn %{"labels" => labels} -> labels end)
+    |> Enum.reduce(%{}, fn %{"name" => name}, acc ->
+         case name in @allowed_labels do
+           true -> Map.update(acc, name, 1, &(&1 + 1))
+           _ -> acc
+         end
+       end)
+    |> Map.to_list()
+    |> Enum.max_by(fn {_, count} -> count end, fn -> {@default_label, 0} end)
     |> get_label
   end
 

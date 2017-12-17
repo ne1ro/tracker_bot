@@ -1,6 +1,6 @@
 use Mix.Config
 
 config :tracker_bot,
-      cowboy_opts: [
-        port: 4443
-      ]
+  cowboy_opts: [
+    port: 4443
+  ]

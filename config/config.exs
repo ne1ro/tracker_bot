@@ -19,13 +19,12 @@ use Mix.Config
 # Or configure a 3rd-party app:
 #
 config :tracker_bot,
-       cowboy_opts: [port: System.get_env("PORT") || 3000],
-       pivotal_api_token: System.get_env("PIVOTAL_API_TOKEN"),
-       default_project: System.get_env("DEFAULT_PROJECT"),
-       allowed_users: (System.get_env("ALLOWED_USERS") || "") |> String.split(",")
+  cowboy_opts: [port: System.get_env("PORT") || 3000],
+  pivotal_api_token: System.get_env("PIVOTAL_API_TOKEN"),
+  default_project: System.get_env("DEFAULT_PROJECT"),
+  allowed_users: (System.get_env("ALLOWED_USERS") || "") |> String.split(",")
 
-config :nadia,
-       token: System.get_env("TELEGRAM_API_TOKEN")
+config :nadia, token: System.get_env("TELEGRAM_API_TOKEN")
 
 config :logger, backends: [:console, {LoggerFileBackend, :file_log}]
 
@@ -47,4 +46,4 @@ config :logger, :file_log,
 # Configuration from the imported file will override the ones defined
 # here (which is why it is important to import them last).
 #
-if Mix.env == :prod, do: import_config("prod.exs")
+if Mix.env() == :prod, do: import_config("prod.exs")
