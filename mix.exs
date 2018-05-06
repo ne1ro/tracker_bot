@@ -53,7 +53,7 @@ defmodule TrackerBot.Mixfile do
       {:edeliver, "~> 1.4"},
       {:effects, "~> 0.1.0"},
       {:eper, "~> 0.94.0", only: :dev},
-      {:espec, "~> 1.1.0", only: :test},
+      {:espec, "~> 1.5.1", only: :test},
       {:ex_doc, "~> 0.11", only: :dev},
       {:ex_machina, "~> 0.6.1", only: ~w(dev test)a},
       {:faker, "~> 0.5", only: :test},
