@@ -61,9 +61,9 @@ defmodule TrackerBot.Mixfile do
       {:hackney, "~> 1.8"},
       {:httpoison, "~> 0.13.0"},
       {:logger_file_backend, "~> 0.0.9"},
-      {:monadex, "~> 1.0.2"},
+      {:monadex, "~> 1.1.3"},
       {:nadia, "~> 0.4"},
-      {:observer_cli, "~> 1.0.5", only: :dev},
+      {:observer_cli, "~> 1.3.1", only: :dev},
       {:plug, "~> 1.3"},
       {:poison, "~> 3.1"},
       {:timex, "~> 3.1"}
