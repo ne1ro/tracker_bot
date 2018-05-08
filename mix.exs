@@ -45,7 +45,7 @@ defmodule TrackerBot.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:cowboy, "~> 1.0.0"},
+      {:cowboy, "~> 1.1.2"},
       {:credo, "~> 0.8", only: ~w(dev test)a},
       {:dialyxir, "~> 0.4", only: ~w(dev test)a, runtime: false},
       {:distillery, "~> 1.4"},
