@@ -55,7 +55,7 @@ defmodule TrackerBot.Mixfile do
       {:eper, "~> 0.94.0", only: :dev},
       {:espec, "~> 1.5.1", only: :test},
       {:ex_doc, "~> 0.11", only: :dev},
-      {:ex_machina, "~> 0.6.1", only: ~w(dev test)a},
+      {:ex_machina, "~> 2.2.0", only: ~w(dev test)a},
       {:faker, "~> 0.5", only: :test},
       {:guardsafe, "~> 0.5.0"},
       {:hackney, "~> 1.8"},
