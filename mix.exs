@@ -48,7 +48,7 @@ defmodule TrackerBot.Mixfile do
       {:cowboy, "~> 1.0.0"},
       {:credo, "~> 0.8", only: ~w(dev test)a},
       {:dialyxir, "~> 0.4", only: ~w(dev test)a, runtime: false},
-      {:distillery, "~> 1.4"},
+      {:distillery, "~> 2.0"},
       {:edeliver, ">= 1.2.9", only: :dev},
       {:edeliver, "~> 1.4"},
       {:effects, "~> 0.1.0"},
