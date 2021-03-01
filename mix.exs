@@ -63,7 +63,7 @@ defmodule TrackerBot.Mixfile do
       {:logger_file_backend, "~> 0.0.9"},
       {:monadex, "~> 1.1.3"},
       {:nadia, "~> 0.4"},
-      {:observer_cli, "~> 1.3.1", only: :dev},
+      {:observer_cli, "~> 1.6.1", only: :dev},
       {:plug, "~> 1.3"},
       {:poison, "~> 3.1"},
       {:timex, "~> 3.1"}
