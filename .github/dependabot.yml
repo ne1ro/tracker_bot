@@ -1,0 +1,21 @@
+version: 2
+updates:
+- package-ecosystem: mix
+  directory: "/"
+  schedule:
+    interval: monthly
+    time: "07:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: credo
+    versions:
+    - 1.5.4
+  - dependency-name: ex_machina
+    versions:
+    - 2.5.0
+  - dependency-name: timex
+    versions:
+    - 3.6.3
+  - dependency-name: observer_cli
+    versions:
+    - 1.6.0
